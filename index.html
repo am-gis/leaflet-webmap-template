@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Webmap Template</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+        <script src="js/leaflet.js"></script>
+        <style>
+            #map {position: absolute; top: 0; bottom: 0; left: 0; right: 0;}
+        </style>
+    </head>
+    <body>
+        <div id = "map"></div>
+        <script type="text/javascript">
+
+            	var map = L.map('map').setView([35.7969075, -120.2962231], 13); //Center coordinates and zoom level of map on load	            });
+                var basemaps = { //Add new basemaps in alphabetical order
+                    'Google Satellite': L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+                        subdomains:['mt0','mt1','mt2','mt3'],
+                        maxZoom: 22,
+                        attribution: 'Map data ©2022 Google'
+                    }),
+                    Mapbox_Aerial: L.tileLayer('https://api.mapbox.com/styles/v1/am-gis-department/cl1b6ksp7004715pc4ygi3yon/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYW0tZ2lzLWRlcGFydG1lbnQiLCJhIjoiY2s3MHNxeGt6MDBocTNrcnE3ZTZhdmZrMyJ9.zgQHgBOTsMAUbSh77T-e2Q', {
+                        layers: 'mapbox-aerial',
+                        maxZoom: 22,
+                        attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+                    })
+                };   
+                var layerControl = L.control.layers(basemaps, {}, {collapsed: true}).addTo(map);
+                basemaps.Mapbox_Aerial.addTo(map); //Default basemap activated on map load
+
+                var description = L.control({position: "bottomleft"}, {collapsed: true});
+                description.onAdd = function(map) {
+                    var div = L.DomUtil.create("div", "description");
+                    div.innerHTML = 
+                        '<p><b>Simple shapes in Leaflet</b></p><hr>' + //Description Header
+                        '<p>This map shows an example of adding shapes ' + 
+                        'on a Leaflet map</p>' +
+                        'The following shapes were added:<br>' +
+                        '<p><ul>' +
+                        '<li>A marker</li>' +
+                        '<li>A line</li>' +
+                        '<li>A polygon</li>' +
+                        '</ul></p>' +
+                        'The line layer has a <b>popup</b>. ' + 
+                        'Click on the line to see it!<hr>' +
+                        'Created with the Leaflet library<br>' +
+                        '<img src="images/AM_Logo.svg">';
+                    return div;
+                };
+                description.addTo(map);
+        </script>
+    </body>
+</html>
