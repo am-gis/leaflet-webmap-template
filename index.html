@@ -32,26 +32,6 @@
                 var layerControl = L.control.layers(basemaps, {}, {collapsed: true}).addTo(map);
                 basemaps.Mapbox_Aerial.addTo(map); //Default basemap activated on map load
 
-
-
-                L.Control.textbox = L.Control.extend({
-		            onAdd: function(map) {
-			
-		            var text = L.DomUtil.create('div');
-		            text.id = "info_text";
-		            text.innerHTML = "<strong>text here</strong>"
-		            return text;
-		            },
-
-		            onRemove: function(map) {
-			            // Nothing to do here
-		            }
-	            });
-	            L.control.textbox = function(opts) { return new L.Control.textbox(opts);}
-	            L.control.textbox({ position: 'bottomright' }).addTo(map);
-               
-                
-
                 var description = L.control({position: "bottomleft"});
                 description.onAdd = function(map) {
                     var div = L.DomUtil.create("div", "description");
