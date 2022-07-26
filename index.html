@@ -32,22 +32,40 @@
                 var layerControl = L.control.layers(basemaps, {}, {collapsed: true}).addTo(map);
                 basemaps.Mapbox_Aerial.addTo(map); //Default basemap activated on map load
 
-                var description = L.control({position: "bottomleft"}, {collapsed: true});
+
+
+                L.Control.textbox = L.Control.extend({
+		            onAdd: function(map) {
+			
+		            var text = L.DomUtil.create('div');
+		            text.id = "info_text";
+		            text.innerHTML = "<strong>text here</strong>"
+		            return text;
+		            },
+
+		            onRemove: function(map) {
+			            // Nothing to do here
+		            }
+	            });
+	            L.control.textbox = function(opts) { return new L.Control.textbox(opts);}
+	            L.control.textbox({ position: 'bottomright' }).addTo(map);
+               
+                
+
+                var description = L.control({position: "bottomleft"});
                 description.onAdd = function(map) {
                     var div = L.DomUtil.create("div", "description");
                     div.innerHTML = 
-                        '<p><b>Simple shapes in Leaflet</b></p><hr>' + //Description Header
-                        '<p>This map shows an example of adding shapes ' + 
-                        'on a Leaflet map</p>' +
-                        'The following shapes were added:<br>' +
+                        '<p><b>Template Header</b></p><hr>' + //Description Header
+                        '<p>Template text about the map/project</p>' +
+                        'You can make a list:<br>' +
                         '<p><ul>' +
-                        '<li>A marker</li>' +
-                        '<li>A line</li>' +
-                        '<li>A polygon</li>' +
+                        '<li>Item 1</li>' +
+                        '<li>Item 2</li>' +
+                        '<li>Item 3</li>' +
                         '</ul></p>' +
-                        'The line layer has a <b>popup</b>. ' + 
-                        'Click on the line to see it!<hr>' +
-                        'Created with the Leaflet library<br>' +
+                        'Example text but <b>BOLD</b>. ' + 
+                        'Wow!!<hr>' +
                         '<img src="images/AM_Logo.svg">';
                     return div;
                 };
